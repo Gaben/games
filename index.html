@@ -7,11 +7,30 @@
     <title>Game</title>
   </head>
   <body>
-    <h1>Hangman Game</h1>
-    <p>
-      Welcome to the Hangman game! Try to guess the word before you run out of
-      attempts.
-    </p>
+    <div class="header">
+      <h1>Hangman Game</h1>
+      <p>Guess the word before you run out of attempts!</p>
+    </div>
+    <div class="game-container">
+      <div class="word-display">
+        <span class="letter">_</span>
+        <span class="letter">_</span>
+        <span class="letter">_</span>
+        <span class="letter">_</span>
+        <span class="letter">_</span>
+      </div>
+      <div class="attempts">
+        <p>Attempts left: <span class="attempts-left">6</span></p>
+      </div>
+      <div class="input-section">
+        <input type="text" class="letter-input" maxlength="1" />
+        <button class="guess-button">Guess</button>
+      </div>
+      <div class="message"></div>
+    </div>
+    <div class="footer">
+      <p>&copy; @Gab 2025 Hangman Game</p>
+    </div>
     <script src="main.js"></script>
   </body>
 </html>
