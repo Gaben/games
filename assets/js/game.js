@@ -25,3 +25,19 @@ function initGame() {
   document.getElementById("fails").textContent = `Fails: ${fails}/${maxFails}`;
   document.getElementById("message").textContent = "";
 }
+
+function guessLetter(letter) {
+  letter = letter.toUpperCase();
+  if (alphabet.includes(letter) && !lettersOK.includes(letter)) {
+    if (secretWord.includes(letter)) {
+      for (let i = 0; i < secretWord.length; i++) {
+        if (secretWord[i] === letter) {
+          lettersOK[i] = letter;
+        }
+      }
+    } else {
+      fails++;
+    }
+    updateDisplay();
+  }
+}
