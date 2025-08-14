@@ -51,3 +51,8 @@ function guessLetter(letter) {
     document.getElementById("guessButton").disabled = true;
   }
 }
+
+function updateDisplay() {
+  document.getElementById("word").textContent = lettersOK.join(" ");
+  document.getElementById("fails").textContent = `Fails: ${fails}/${maxFails}`;
+}
