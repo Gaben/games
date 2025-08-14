@@ -10,3 +10,9 @@ const words = [
 ];
 
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+const maxFails = 6;
+
+let secretWord = "";
+let lettersOK = [];
+let fails = 0;
