@@ -40,6 +40,8 @@ function guessLetter(letter) {
     }
     updateDisplay();
   }
+  checkGameOver();
+}
 
   if (fails >= maxFails) {
     document.getElementById("message").textContent =
