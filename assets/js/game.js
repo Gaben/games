@@ -69,3 +69,27 @@ function checkGameOver() {
     document.getElementById("guessButton").disabled = true;
   }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  initGame();
+  const letterButtons = document.querySelectorAll(".letter-button");
+  letterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      guessLetter(button.textContent);
+    });
+  });
+
+  document.getElementById("guessButton").addEventListener("click", () => {
+    const input = document.getElementById("letterInput").value.toUpperCase();
+    if (input && alphabet.includes(input)) {
+      guessLetter(input);
+      document.getElementById("letterInput").value = "";
+    }
+  });
+});
+document.getElementById("resetButton").addEventListener("click", () => {
+  initGame();
+  document.getElementById("guessButton").disabled = false;
+  document.getElementById("letterInput").value = "";
+  document.getElementById("message").textContent = "";
+});
