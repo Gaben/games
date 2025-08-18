@@ -41,7 +41,6 @@ function guessLetter(letter) {
     updateDisplay();
   }
   checkGameOver();
-}
 
   if (fails >= maxFails) {
     document.getElementById("message").textContent =
@@ -57,4 +56,16 @@ function guessLetter(letter) {
 function updateDisplay() {
   document.getElementById("word").textContent = lettersOK.join(" ");
   document.getElementById("fails").textContent = `Fails: ${fails}/${maxFails}`;
+}
+
+function checkGameOver() {
+  if (fails >= maxFails) {
+    document.getElementById("message").textContent =
+      `Game Over! The word was "${secretWord}".`;
+    document.getElementById("guessButton").disabled = true;
+  } else if (!lettersOK.includes("_")) {
+    document.getElementById("message").textContent =
+      "Congratulations! You've guessed the word!";
+    document.getElementById("guessButton").disabled = true;
+  }
 }
