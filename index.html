@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./assets/css/main.css" />
-    <title>Game</title>
+    <title>Hangman Game</title>
   </head>
   <body>
-    <div class="header">
+    <header class="header">
       <h1>Hangman Game</h1>
       <p>Guess the word before you run out of attempts!</p>
-    </div>
-    <div class="game-container">
+    </header>
+    <main class="game-container">
       <div class="word-display">
         <span class="letter">_</span>
         <span class="letter">_</span>
@@ -40,21 +40,24 @@
       <div class="hints">
         <p>Hints: <span class="hints-list">Use wisely!</span></p>
       </div>
-      <div class="input-instructions">
-        <p>Enter a letter and click "Guess" to play!</p>
-      </div>
       <div class="input-section">
-        <input type="text" class="letter-input" maxlength="1" />
+        <label for="letter-input">Enter a letter:</label>
+        <input
+          type="text"
+          id="letter-input"
+          class="letter-input"
+          maxlength="1"
+        />
         <button class="guess-button">Guess</button>
       </div>
       <div class="message"></div>
       <div class="hangman-image">
-        <img src="hangman0.png" alt="Hangman Stage" />
+        <img src="./assets/images/hangman0.png" alt="Hangman Stage" />
       </div>
-    </div>
-    <div class="footer">
-      <p>&copy; @Gab 2025 Hangman Game</p>
-    </div>
+    </main>
+    <footer class="footer">
+      <p>&copy; @Gab 2024 Hangman Game</p>
+    </footer>
     <script src="./assets/js/game.js"></script>
   </body>
 </html>
