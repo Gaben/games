@@ -1,95 +1,132 @@
-const words = [
-  "STRUGGLE",
-  "OUTREACH",
-  "NOTEBOOK",
-  "SECURITY",
-  "HOSPITAL",
-  "MOUNTAIN",
-  "SHOULDER",
-  "POSSIBLE",
-];
+document.addEventListener("DOMContentLoaded", () => {
+  // --- DOM  ---
+  const dom = {
+    wordDisplay: document.querySelector(".word-display"),
+    attemptsLeft: document.querySelector(".attempts-left"),
+    guessedLettersList: document.querySelector(".guessed-letters-list"),
+    message: document.querySelector(".message"),
+    hangmanImage: document.querySelector(".hangman-image img"),
+    letterInput: document.querySelector("#letter-input"),
+    guessButton: document.querySelector(".guess-button"),
+  };
 
-const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-const maxFails = 6;
+  const words = [
+    "STRUGGLE",
+    "OUTREACH",
+    "NOTEBOOK",
+    "SECURITY",
+    "HOSPITAL",
+    "MOUNTAIN",
+    "SHOULDER",
+    "POSSIBLE",
+  ];
+  const maxAttempts = 6;
 
-let secretWord = "";
-let lettersOK = [];
-let fails = 0;
+  let secretWord = "";
+  let displayedWord = [];
+  let guessedLetters = [];
+  let attemptsLeft = 0;
+  let isGameOver = false;
 
-function initGame() {
-  secretWord = words[Math.floor(Math.random() * words.length)];
-  lettersOK = Array(secretWord.length).fill("_");
-  fails = 0;
-  document.getElementById("word").textContent = lettersOK.join(" ");
-  document.getElementById("fails").textContent = `Fails: ${fails}/${maxFails}`;
-  document.getElementById("message").textContent = "";
-}
 
-function guessLetter(letter) {
-  letter = letter.toUpperCase();
-  if (alphabet.includes(letter) && !lettersOK.includes(letter)) {
-    if (secretWord.includes(letter)) {
+
+
+  function initGame() {
+    isGameOver = false;
+    secretWord = words[Math.floor(Math.random() * words.length)];
+    displayedWord = Array(secretWord.length).fill("_");
+    guessedLetters = [];
+    attemptsLeft = maxAttempts;
+
+    // Reset UI
+    dom.message.textContent = "";
+    dom.guessButton.disabled = false;
+    dom.letterInput.disabled = false;
+    dom.letterInput.value = "";
+    updateWordDisplay();
+    updateGuessedLetters();
+    updateAttempts();
+    updateHangmanImage();
+  }
+
+
+    @param {string} letter
+  function guessLetter(letter) {
+    const upperLetter = letter.toUpperCase();
+
+    if (
+      isGameOver ||
+      !/^[A-Z]$/.test(upperLetter) ||
+      guessedLetters.includes(upperLetter)
+    ) {
+      return;
+    }
+
+    guessedLetters.push(upperLetter);
+
+    if (secretWord.includes(upperLetter)) {
+      // Correct guess
       for (let i = 0; i < secretWord.length; i++) {
-        if (secretWord[i] === letter) {
-          lettersOK[i] = letter;
+        if (secretWord[i] === upperLetter) {
+          displayedWord[i] = upperLetter;
         }
       }
     } else {
-      fails++;
+      attemptsLeft--;
+      updateHangmanImage();
     }
-    updateDisplay();
+
+    updateWordDisplay();
+    updateGuessedLetters();
+    updateAttempts();
+    checkGameOver();
   }
-  checkGameOver();
 
-  if (fails >= maxFails) {
-    document.getElementById("message").textContent =
-      `Game Over! The word was "${secretWord}".`;
-    document.getElementById("guessButton").disabled = true;
-  } else if (!lettersOK.includes("_")) {
-    document.getElementById("message").textContent =
-      "Congratulations! You've guessed the word!";
-    document.getElementById("guessButton").disabled = true;
-  }
-}
 
-function updateDisplay() {
-  document.getElementById("word").textContent = lettersOK.join(" ");
-  document.getElementById("fails").textContent = `Fails: ${fails}/${maxFails}`;
-}
-
-function checkGameOver() {
-  if (fails >= maxFails) {
-    document.getElementById("message").textContent =
-      `Game Over! The word was "${secretWord}".`;
-    document.getElementById("guessButton").disabled = true;
-  } else if (!lettersOK.includes("_")) {
-    document.getElementById("message").textContent =
-      "Congratulations! You've guessed the word!";
-    document.getElementById("guessButton").disabled = true;
-  }
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  initGame();
-  const letterButtons = document.querySelectorAll(".letter-button");
-  letterButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      guessLetter(button.textContent);
+  function updateWordDisplay() {
+    dom.wordDisplay.innerHTML = ""; // clear
+    displayedWord.forEach((char) => {
+      const letterSpan = document.createElement("span");
+      letterSpan.className = "letter";
+      letterSpan.textContent = char;
+      dom.wordDisplay.appendChild(letterSpan);
     });
+  }
+
+  function updateGuessedLetters() {
+    dom.guessedLettersList.textContent = guessedLetters.join(", ");
+  }
+
+  function updateAttempts() {
+    dom.attemptsLeft.textContent = attemptsLeft;
+  }
+
+  function updateHangmanImage() {
+    const stage = maxAttempts - attemptsLeft;
+    dom.hangmanImage.src = `./assets/images/hangman${stage}.png`;
+  }
+
+  function checkGameOver() {
+    if (displayedWord.join("") === secretWord) {
+      dom.message.textContent = "Congratulations! You've guessed the word!";
+      isGameOver = true;
+    } else if (attemptsLeft <= 0) {
+      dom.message.textContent = `Game Over! The word was "${secretWord}".`;
+      isGameOver = true;
+    }
+
+    if (isGameOver) {
+      dom.guessButton.disabled = true;
+      dom.letterInput.disabled = true;
+    }
+  }
+
+  dom.guessButton.addEventListener("click", () => {
+    guessLetter(dom.letterInput.value);
+    dom.letterInput.value = "";
+    dom.letterInput.focus();
   });
 
-  document.getElementById("guessButton").addEventListener("click", () => {
-    const input = document.getElementById("letterInput").value.toUpperCase();
-    if (input && alphabet.includes(input)) {
-      guessLetter(input);
-      document.getElementById("letterInput").value = "";
-    }
-  });
-});
-document.getElementById("resetButton").addEventListener("click", () => {
   initGame();
-  document.getElementById("guessButton").disabled = false;
-  document.getElementById("letterInput").value = "";
-  document.getElementById("message").textContent = "";
 });
