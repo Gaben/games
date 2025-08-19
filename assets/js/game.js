@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
     guessButton: document.querySelector(".guess-button"),
   };
 
-
   const words = [
     "STRUGGLE",
     "OUTREACH",
@@ -28,9 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let guessedLetters = [];
   let attemptsLeft = 0;
   let isGameOver = false;
-
-
-
 
   function initGame() {
     isGameOver = false;
@@ -50,8 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
     updateHangmanImage();
   }
 
-
-    @param {string} letter
   function guessLetter(letter) {
     const upperLetter = letter.toUpperCase();
 
@@ -82,7 +76,6 @@ document.addEventListener("DOMContentLoaded", () => {
     updateAttempts();
     checkGameOver();
   }
-
 
   function updateWordDisplay() {
     dom.wordDisplay.innerHTML = ""; // clear
