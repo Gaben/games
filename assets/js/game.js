@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // --- DOM  ---
   const dom = {
     wordDisplay: document.querySelector(".word-display"),
     attemptsLeft: document.querySelector(".attempts-left"),
@@ -60,7 +59,6 @@ document.addEventListener("DOMContentLoaded", () => {
     guessedLetters.push(upperLetter);
 
     if (secretWord.includes(upperLetter)) {
-      // Correct guess
       for (let i = 0; i < secretWord.length; i++) {
         if (secretWord[i] === upperLetter) {
           displayedWord[i] = upperLetter;
