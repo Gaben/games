@@ -1,3 +1,12 @@
 header {
   background-color: wheat;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  h1 {
+    margin-left: 20px;
+  }
 }
+
+// &:hover para definir subclases
+// @mixin para definir mixins
