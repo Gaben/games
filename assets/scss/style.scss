@@ -9,7 +9,25 @@ header {
 }
 
 // &:hover para definir subclases
+
 //$variables scss :: ejemplos::
 // $primary-color: #333;
 // $secundary-color: #666;
 // @mixin para definir mixins
+
+// $variables - mapas con claves y valores
+//ejemplo
+// $color:(
+//   primary: #333,
+//   secundary: #666
+// );
+// $fonts:(
+//   xl: 2rem,
+//   l: 1.5rem,
+//   m: 1rem,
+//   s: 0.75rem
+// );
+
+// Para utilizar el mapa
+// color: map-get($color, primary);
+// font-size: map-get($fonts, xl);
