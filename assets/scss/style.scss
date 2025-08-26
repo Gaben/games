@@ -1,6 +1,9 @@
 @import "base/reset";
-
-// &:hover para definir subclases
+@import "layout/header";
+@import "layout/game-container";
+@import "layout/word-display";
+@import "layout/attempts";
+@import "layout/footer"; // &:hover para definir subclases
 
 //$variables scss :: ejemplos::
 // $primary-color: #333;
