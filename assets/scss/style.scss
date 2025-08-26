@@ -1,9 +1,21 @@
+// llamo a utilities
+@import "utilities/variables";
+@import "utilities/maps";
+@import "utilities/mixins";
+
+@import "utilities/functions";
+
+// @import "utilities/placeholders";
+
+// llamo a layouts
 @import "base/reset";
 @import "layout/header";
 @import "layout/game-container";
 @import "layout/word-display";
 @import "layout/attempts";
-@import "layout/footer"; // &:hover para definir subclases
+@import "layout/footer";
+
+// &:hover para definir subclases
 
 //$variables scss :: ejemplos::
 // $primary-color: #333;
