@@ -76,13 +76,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateWordDisplay() {
-    dom.wordDisplay.innerHTML = ""; // clear
-    displayedWord.forEach((char) => {
-      const letterSpan = document.createElement("span");
-      letterSpan.className = "letter";
-      letterSpan.textContent = char;
-      dom.wordDisplay.appendChild(letterSpan);
-    });
+    dom.wordDisplay.innerHTML = displayedWord
+      .map((char) => `<span class="letter">${char}</span>`)
+      .join("");
   }
 
   function updateGuessedLetters() {
@@ -117,6 +113,13 @@ document.addEventListener("DOMContentLoaded", () => {
     guessLetter(dom.letterInput.value);
     dom.letterInput.value = "";
     dom.letterInput.focus();
+  });
+
+  dom.letterInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      guessLetter(dom.letterInput.value);
+      dom.letterInput.value = "";
+    }
   });
 
   initGame();
